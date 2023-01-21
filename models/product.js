@@ -31,6 +31,7 @@ class Product {
   }
 
   save() {
+    this.id = Math.random().toString();
     checkDataFolder();
     geProductsFromFile((products) => {
       products.push(this);
@@ -42,6 +43,13 @@ class Product {
 
   static fetchAll(callBack) {
     geProductsFromFile(callBack);
+  }
+
+  static findById(id, cb) {
+    geProductsFromFile(products => {
+      const product = products.find(product => product.id === id)
+      cb(product)
+    })
   }
 }
 
