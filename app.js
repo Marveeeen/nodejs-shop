@@ -12,15 +12,23 @@ const errorController = require("./controllers/error");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
+
+// setup template engine
 app.set("view engine", "ejs");
 app.set("views", "views");
 
+// middleware for parsing data
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// for static resources
 app.use(express.static(path.join(__dirname, "public")));
 
+// for routing
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+
+// SERVE SERVER 8080
 app.listen(PORT, () => console.log("Server running"));
