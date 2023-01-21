@@ -2,8 +2,8 @@
   width: 20rem;
   max-width: 90%;
   margin: auto;
+  display: block;
 }
-
 
 .form-control {
   margin: 1rem 0;
