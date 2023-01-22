@@ -63,6 +63,15 @@ class Product {
       cb(product);
     });
   }
+
+  static deleteProduct(id) {
+    geProductsFromFile(products => {
+      const updatedProducts = products.filter(product => product.id !== id)
+      fs.writeFile(savePath, JSON.stringify(updatedProducts), (err) => {
+        console.log(err);
+      });
+    })
+  }
 }
 
 module.exports = Product;

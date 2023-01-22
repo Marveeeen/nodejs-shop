@@ -16,6 +16,16 @@ const postAddProduct = (req, res, next) => {
   res.redirect("/");
 };
 
+const getAdminProducts = (req, res, next) => {
+  Product.fetchAll((products) => {
+    res.render("admin/products-list", {
+      prods: products,
+      pageTitle: "Admin Products",
+      path: "/admin/products",
+    });
+  });
+};
+
 const getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
 
@@ -42,15 +52,11 @@ const postEditProduct = (req, res, next) => {
   res.redirect("/admin/products");
 };
 
-const getAdminProducts = (req, res, next) => {
-  Product.fetchAll((products) => {
-    res.render("admin/products-list", {
-      prods: products,
-      pageTitle: "Admin Products",
-      path: "/admin/products",
-    });
-  });
-};
+const postDeleteProduct = (req, res, next) => {
+  const { productId } = req.body
+  Product.deleteProduct(productId)
+  res.redirect('/admin/products')
+}
 
 module.exports = {
   getAddProduct,
@@ -58,4 +64,5 @@ module.exports = {
   getEditProduct,
   postEditProduct,
   postAddProduct,
+  postDeleteProduct
 };
