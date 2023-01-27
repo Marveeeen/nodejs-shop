@@ -1,3 +1,4 @@
+const { getCipherInfo } = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
@@ -65,6 +66,17 @@ class Cart {
       fs.writeFile(savePath, JSON.stringify(updatedCart), (err) => {
         console.log(err);
       });
+    });
+  }
+
+  static getCart(callBack) {
+    fs.readFile(savePath, (err, fileContent) => {
+      const cart = JSON.parse(fileContent);
+      if (err) {
+        callBack(null);
+      } else {
+        callBack(cart);
+      }
     });
   }
 }
