@@ -25,7 +25,7 @@ class Cart {
         updatedProduct = { ...existingProduct };
         updatedProduct.qty = updatedProduct.qty + 1;
         cart.products = [...cart.products];
-        cart.products[existingProductIndex] = [updatedProduct];
+        cart.products[existingProductIndex] = updatedProduct;
       } else {
         updatedProduct = { id, qty: 1 };
         cart.products = [...cart.products, updatedProduct];
@@ -33,6 +33,36 @@ class Cart {
 
       cart.totalPrice = cart.totalPrice + Number(productPrice);
       fs.writeFile(savePath, JSON.stringify(cart), (err) => {
+        console.log(err);
+      });
+    });
+  }
+
+  static deleteProduct(productId, productPrice) {
+    fs.readFile(savePath, (err, fileContent) => {
+      if (err) {
+        return;
+      }
+
+      const updatedCart = { ...JSON.parse(fileContent) };
+
+      const product = updatedCart.products.find((product) => {
+        return product.id === productId;
+      });
+
+      if (!product) {
+        return;
+      }
+
+      const productQty = product.qty;
+
+      updatedCart.products = updatedCart.products.filter(
+        (product) => product.id !== productId
+      );
+
+      updatedCart.totalPrice -= productPrice * productQty;
+
+      fs.writeFile(savePath, JSON.stringify(updatedCart), (err) => {
         console.log(err);
       });
     });
