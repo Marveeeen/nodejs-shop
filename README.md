@@ -7,7 +7,7 @@ A shopping cart that is build by learning node.js. I am going to implement all o
 
 **Tech used:** NodeJS, express, mysql, ejs
 
-This app is build using node.js and express for the server, EJS for the template engine and lastlty there 3 types of database I use. The first one is using fileSystem and a normal json file, second is using mysql.
+This app is build using node.js and express for the server, EJS for the template engine and lastlty there 3 types of database I use. The first one is using fileSystem and a normal json file, second is using mysql and sequelize.
 
 ## Optimizations
 
@@ -22,5 +22,5 @@ This app is build using node.js and express for the server, EJS for the template
 - template engine (EJS)
 - MVC
 - SQL and NO SQL
-- mysql
+- mysql and sequelize
 
