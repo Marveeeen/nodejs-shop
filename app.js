@@ -3,11 +3,12 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const app = express();
-
 const PORT = "8080";
 
 const errorController = require("./controllers/error");
+const sequelize = require("./util/database");
+
+const app = express();
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
@@ -28,5 +29,13 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-// SERVE SERVER 8080
-app.listen(PORT, () => console.log("Server running"));
+sequelize
+  .sync()
+  .then((result) => {
+    // SERVE SERVER 8080
+    app.listen(PORT, () => console.log("Server running"));
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
