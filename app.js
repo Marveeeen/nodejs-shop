@@ -70,6 +70,12 @@ sequelize
   .then((user) => {
     console.log("USER FOUND");
     // SERVE SERVER 8080
+    if (user.getCart()) {
+      return Promise.resolve();
+    }
+    return user.createCart();
+  })
+  .then((cart) => {
     app.listen(PORT, () => console.log("Server running"));
   })
   .catch((err) => {
