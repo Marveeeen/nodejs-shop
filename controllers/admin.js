@@ -10,12 +10,15 @@ const getAddProduct = (req, res, next) => {
 
 const postAddProduct = (req, res, next) => {
   const { title, imageUrl, price, description } = req.body;
-  Product.create({
-    title,
-    price,
-    imageUrl,
-    description,
-  })
+  const { user } = req;
+
+  user
+    .createProduct({
+      title,
+      price,
+      imageUrl,
+      description,
+    })
     .then((result) => {
       console.log("Created Product");
       res.redirect("/");
@@ -26,7 +29,9 @@ const postAddProduct = (req, res, next) => {
 };
 
 const getAdminProducts = (req, res, next) => {
-  Product.findAll()
+  const { user } = req
+
+  user.getProducts()
     .then((products) => {
       res.render("admin/products-list", {
         prods: products,
