@@ -163,8 +163,8 @@ const postOrder = (req, res, next) => {
         })
         .catch((err) => console.log(err));
     })
-    .then(result => {
-      fetchedCart.setProducts(null)
+    .then((result) => {
+      fetchedCart.setProducts(null);
     })
     .then((result) => {
       res.redirect("/orders");
