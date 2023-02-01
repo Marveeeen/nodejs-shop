@@ -15,16 +15,13 @@ const postAddProduct = (req, res, next) => {
   product
     .save()
     .then((result) => {
-      console.log("Created Product")
+      console.log("Created Product");
     })
     .catch((err) => console.log(err));
 };
 
 const getAdminProducts = (req, res, next) => {
-  const { user } = req;
-
-  user
-    .getProducts()
+  Product.fetchAll()
     .then((products) => {
       res.render("admin/products-list", {
         prods: products,
